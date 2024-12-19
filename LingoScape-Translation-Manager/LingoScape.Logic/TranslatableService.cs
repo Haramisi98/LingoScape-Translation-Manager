@@ -1,6 +1,6 @@
 ﻿namespace LingoScape.Logic
 {
-    public class Class1
+    public class TranslatableService
     {
 
     }

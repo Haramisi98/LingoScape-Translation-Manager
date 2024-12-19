@@ -9,4 +9,11 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\LingoScape.DataAccessLayer\LingoScape.DataAccessLayer.csproj" />
+    <ProjectReference Include="..\LingoScape.GitHubIntegrationLayer\LingoScape.GitHubIntegrationLayer.csproj" />
+    <ProjectReference Include="..\LingoScape.Logic\LingoScape.Logic.csproj" />
+    <ProjectReference Include="..\LingoScape.Repository\LingoScape.Repository.csproj" />
+  </ItemGroup>
+
 </Project>

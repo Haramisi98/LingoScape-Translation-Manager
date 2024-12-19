@@ -6,9 +6,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\LingoScape.Repository\LingoScape.Repository.csproj" />
-    <ProjectReference Include="..\LingoScape.Shared\LingoScape.Shared.csproj" />
-  </ItemGroup>
-
 </Project>

@@ -39,40 +39,55 @@ namespace LingoScape.DataAccessLayer
 
                     // Create Translatable Table
                     ExecuteNonQuery(connection, @"
-                        CREATE TABLE IF NOT EXISTS Translatable (
-                            Id INTEGER PRIMARY KEY AUTOINCREMENT,
-                            RawText TEXT NOT NULL,
-                            Type TEXT
-                        );");
+                CREATE TABLE IF NOT EXISTS TranslatableTable (
+                    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    RawText TEXT NOT NULL,
+                    Type TEXT,
+                    Contributor TEXT
+                );");
 
-                    // Create StaticTranslation Table
+                    // Create StaticTranslations Table
                     ExecuteNonQuery(connection, @"
-                        CREATE TABLE IF NOT EXISTS StaticTranslation (
-                            Id INTEGER PRIMARY KEY AUTOINCREMENT,
-                            RawText TEXT NOT NULL,
-                            LanguageCode TEXT NOT NULL,
-                            Translation TEXT
-                        );");
+                CREATE TABLE IF NOT EXISTS StaticTranslations (
+                    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    RawText TEXT NOT NULL,
+                    Translation TEXT,
+                    LanguageCode TEXT NOT NULL,
+                    Type TEXT,
+                    Contributor TEXT
+                );");
 
-                    // Create DynamicTranslation Table
+                    // Create DynamicContextTranslationTable
                     ExecuteNonQuery(connection, @"
-                        CREATE TABLE IF NOT EXISTS DynamicTranslation (
-                            Id INTEGER PRIMARY KEY AUTOINCREMENT,
-                            RawText TEXT NOT NULL,
-                            NPCName TEXT,
-                            TextType TEXT,
-                            Translation TEXT
-                        );");
+                CREATE TABLE IF NOT EXISTS DynamicContextTranslationTable (
+                    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    RawText TEXT NOT NULL,
+                    Translation TEXT,
+                    LanguageCode TEXT NOT NULL
+                );");
 
-                    // Create Metadata Table
+                    // Create DynamicTranslationTable
                     ExecuteNonQuery(connection, @"
-                        CREATE TABLE IF NOT EXISTS Metadata (
-                            TranslationId INTEGER PRIMARY KEY,
-                            LastUpdated DATETIME DEFAULT CURRENT_TIMESTAMP,
-                            User TEXT,
-                            Status TEXT CHECK(Status IN ('Pending', 'Accepted', 'Rejected')),
-                            FOREIGN KEY (TranslationId) REFERENCES DynamicTranslation(Id)
-                        );");
+                CREATE TABLE IF NOT EXISTS DynamicTranslationTable (
+                    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    RawText TEXT NOT NULL,
+                    Translation TEXT,
+                    LanguageCode TEXT NOT NULL,
+                    Context INTEGER,
+                    NPC TEXT,
+                    Type TEXT,
+                    Contributor TEXT,
+                    FOREIGN KEY (Context) REFERENCES DynamicContextTranslationTable(Id)
+                );");
+
+                    // Create LanguageCompletion Table
+                    ExecuteNonQuery(connection, @"
+                CREATE TABLE IF NOT EXISTS LanguageCompletion (
+                    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    LanguageCode TEXT NOT NULL,
+                    CompletionPercentage REAL,
+                    TopContributors TEXT
+                );");
 
                     Console.WriteLine("Database schema created successfully.");
                 }
